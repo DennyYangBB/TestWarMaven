@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>tw.denny.demo.war</groupId>
+    <artifactId>TestWarMaven</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+
+            <!--mvn tomcat7:deploy-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <url>http://localhost:8088/manager/text</url>
+                    <server>tomcat_8088</server>
+                    <path>/TestWarMaven</path>
+                </configuration>
+            </plugin>
+
+            <!-- mvn wildfly:deploy -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>2.0.2.Final</version>
+                <configuration>
+                    <!-- <force>true</force>-->
+                    <hostname>127.0.0.1</hostname>
+                    <port>9990</port>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <server-groups>
+                        <server-group>main-server-group</server-group>
+                    </server-groups>
+                </configuration>
+            </plugin>
+
+            <!-- mvn com.orctom.mojo:was:1.0.8:deploy -->
+            <plugin>
+                <groupId>com.orctom.mojo</groupId>
+                <artifactId>was-maven-plugin</artifactId>
+                <version>1.0.8</version>
+
+                <!--
+                <executions>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <wasHome>TestWarMaven_war</wasHome>
+                             <applicationName>${project.build.finalName}</applicationName>
+                            <host>192.168.56.106</host>
+                            <server>server1</server>
+                            <node>DefaultNode01</node>
+                            <virtualHost>default_host</virtualHost>
+                            <verbose>true</verbose>
+                        </configuration>
+                    </execution>
+                </executions>
+                -->
+            </plugin>
+        </plugins>
+    </build>
+</project>
